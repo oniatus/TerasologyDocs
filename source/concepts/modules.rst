@@ -15,33 +15,31 @@ Structure of Modules
 - :code:`build.gradle` - internal build file, should not be edited.
 - :code:`module.txt` - Configuration file for the module, similar to a maven :code:`pom.xml` or gradle build file. Have a look at the :ref:`module_txt` section for details.
 
-.. _module_txt:
 
-module.txt
+.. _module_categories:
+
+Categories
 ----------
 
-Definition file for a module, using JSON syntax.
-The following properties are supported:
+Modules can be in different categories, indicated by flags in the :ref:`module_txt`.
 
-- :code:`id` - the internal identifier of the module.
-- :code:`version` - the version of the module, versions are stored in the format :code:`MAJOR.minor.patch(-SNAPSHOT)` (see :ref:`versions` for details).
-- :code:`author` - the author(s) of the module, could be any string. Default are single names or comma-separated lists.
-- :code:`displayName` - the name of the module which is shown ingame to the user.
-- :code:`description` - a textual description, what the module contains and how it affects the game.
-- :code:`dependencies` - a list of *dependencies*, which are mappings to other modules with a given version. Each dependency has the following properties:
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| Category     | Description                                                                                                                   |
++==============+===============================================================================================================================+
+| Gameplay     | Game type / mode that may depend on a large number of modules and forces a particular style of play.                          |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| Library      | No standalone purpose, purely utility for other modules.                                                                      |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| World        | Adds world generator features.                                                                                                |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| Asset        | Plain art / passive convent modules, possibly with prefabs or other definitions.                                              |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| Augmentation | Plug and Play content that can be enabled and could work with gameplay modules but does not force particular gameplay itself. |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
+| Special      | Special cases which do not belong to other categories.                                                                        |
++--------------+-------------------------------------------------------------------------------------------------------------------------------+
 
-  - :code:`id` - The id of the dependent module.
-  - :code:`minVersion` - The minimum version of the dependent module (inclusive).
-  - :code:`maxVersion` - The maximum version of the dependent module (exclusive).
-  - :code:`optional` - If the dependency is optional. A module with optional dependencies should work, even if the optional dependencies are not available when the user starts a game.
-  - :code:`serverSideOnly` - A boolean, indicates if the module should only be available on the server and not on the client. Such modules are not downloaded by a client when he connects to a server.
-  - :code:`isGameplay` - A boolean, indicates if the module should appear in the list of gameplay modules. Typically, such modules contain little logic or assets themselves but bundle other modules together.
-  - :code:`defaultWorldGenerator` - The id of the default world generator [#]_ which should be activated with the module.
 
-
-Have a look at the `NeoTTA/module.txt <https://raw.githubusercontent.com/Terasology/NeoTTA/master/module.txt>`_ or other modules in the `Terasology <https://github.com/Terasology>`_ organization as examples.
-
-.. [#] See :java:ref:`@RegisterWorldGenerator <org.terasology.world.generator.RegisterWorldGenerator>` for details.
 
 Namespace
 ---------

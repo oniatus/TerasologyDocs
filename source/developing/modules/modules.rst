@@ -59,6 +59,42 @@ After you have a module repository on GitHub and still from :code:`modules/MySam
    Of course, you can have a private repository and a link to an official repository at the same time, e.g. with *origin* as name for your private repository and *terasology* as name for the official repository.
    It is up to you, how you finally organize your module setup.
    
+   
+.. _module_txt:
+
+Configuration (module.txt)
+--------------------------
+
+The module.txt file is contained in the root directory of each module and holds the configuration. The file is using JSON-like syntax.
+The following properties are supported:
+
+- :code:`id` - the internal identifier of the module.
+- :code:`version` - the version of the module, versions are stored in the format :code:`MAJOR.minor.patch(-SNAPSHOT)` (see :ref:`versions` for details).
+- :code:`author` - the author(s) of the module, could be any string. Default are single names or comma-separated lists.
+- :code:`displayName` - the name of the module which is shown ingame to the user.
+- :code:`description` - a textual description, what the module contains and how it affects the game.
+- :code:`dependencies` - a list of *dependencies*, which are mappings to other modules with a given version. Each dependency has the following properties:
+
+  - :code:`id` - The id of the dependent module.
+  - :code:`minVersion` - The minimum version of the dependent module (inclusive).
+  - :code:`maxVersion` - The maximum version of the dependent module (exclusive).
+  - :code:`optional` - If the dependency is optional. A module with optional dependencies should work, even if the optional dependencies are not available when the user starts a game.
+  - :code:`serverSideOnly` - A boolean, indicates if the module should only be available on the server and not on the client. Such modules are not downloaded by a client when he connects to a server.
+  - :code:`defaultWorldGenerator` - The id of the default world generator [#]_ which should be activated with the module.
+  - :code:`isGameplay` - A boolean, marks the module as a :ref:`gameplay<module_categories>` module.
+  - :code:`isLibrary` - A boolean, marks the module as a :ref:`library<module_categories>` module.
+  - :code:`isAsset` - A boolean, marks the module as an :ref:`asset<module_categories>` module.
+  - :code:`isWorld` - marks the module as a :ref:`world<module_categories>` module.
+  - :code:`isAugmentation` - marks the module as a :ref:`augmentation<module_categories>` module.
+  - :code:`isSpecial` - A boolean, marks the module as a :ref:`special<module_categories>` module.
+
+
+
+
+Have a look at the `NeoTTA/module.txt <https://raw.githubusercontent.com/Terasology/NeoTTA/master/module.txt>`_ or other modules in the `Terasology <https://github.com/Terasology>`_ organization as examples.
+
+.. [#] See :java:ref:`@RegisterWorldGenerator <org.terasology.world.generator.RegisterWorldGenerator>` for details.
+   
 Dependency Resolution
 ---------------------
 
